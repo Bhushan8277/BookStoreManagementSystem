@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Book Store</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: gradient 10s ease infinite; 
+            background: linear-gradient(45deg, #1c92c4, #f2fcfe);
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1; 
+            padding: 50px 20px;
+            background-color: rgba(0, 0, 0, 0.5); 
+            border-radius: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        h2 {
+            color: #ddd;
+            margin: 20px 0;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 200px;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #0056b3;
+        }
+
+        input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        nav {
+            margin-top: 30px;
+        }
+
+        nav a {
+            color: #007BFF;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #0056b3;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="backgroundCanvas"></canvas>
+    <div class="container">
+        <h1>PLEASE ENTER NAME TO VISIT THE STORE</h1>
+        <form action="/" method="post">  
+            <input type="text" name="user" placeholder="Enter your name" required>
+            <input type="submit" value="SUBMIT">
+        </form>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("backgroundCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let stars = [];
+        let lines = [];
+
+        function createStar() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const size = Math.random() * 3 + 1; // Star size
+            stars.push({ x, y, size, speed: Math.random() * 0.5 + 0.1 }); 
+        }
+
+        function createLine() {
+            const startX = Math.random() * canvas.width;
+            const startY = Math.random() * canvas.height;
+            const endX = Math.random() * canvas.width;
+            const endY = Math.random() * canvas.height;
+            lines.push({ startX, startY, endX, endY, speed: Math.random() * 0.5 + 0.1 }); 
+        }
+
+        function drawStars() {
+            for (let star of stars) {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        function drawLines() {
+            for (let line of lines) {
+                ctx.beginPath();
+                ctx.moveTo(line.startX, line.startY);
+                ctx.lineTo(line.endX, line.endY);
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.closePath();
+            }
+        }
+
+        function updateStars() {
+            for (let star of stars) {
+                star.y += star.speed;
+                if (star.y > canvas.height) {
+                    star.y = 0; 
+                    star.x = Math.random() * canvas.width;
+                }
+            }
+        }
+
+        function updateLines() {
+            for (let line of lines) {
+                line.startY += line.speed; 
+                line.endY += line.speed; 
+                if (line.startY > canvas.height) {
+                    line.startY = 0; 
+                    line.endY = 0;
+                    line.startX = Math.random() * canvas.width; 
+                    line.endX = Math.random() * canvas.width; 
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            updateStars();
+            updateLines();
+            drawStars();
+            drawLines();
+            requestAnimationFrame(animate);
+        }
+
+        for (let i = 0; i < 100; i++) {
+            createStar();
+        }
+        for (let i = 0; i < 50; i++) {
+            createLine();
+        }
+
+        animate();
+    </script>
+</body>
+</html>

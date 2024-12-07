@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en" xmlns="https://www.thymeleaf.com">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>BOOK STORE MANAGEMENT</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        
+        body {
+            background: linear-gradient(120deg, #f6d365, #fda085);
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        
+        .navbar {
+            background: #4a90e2;
+            padding: 1rem 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar:hover {
+            background: #357ab8;
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: #ffeaa7;
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #ffffff;
+            margin: 0 15px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffeaa7;
+            transform: scale(1.1);
+        }
+
+        .navbar-collapse {
+            justify-content: flex-end;
+        }
+
+        /* Table Styling */
+        .table-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .table th {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 12px 15px;
+            border-radius: 5px;
+        }
+
+        .table td {
+            background: #fff;
+            color: #555;
+            padding: 10px 15px;
+            vertical-align: middle;
+            border-radius: 5px;
+        }
+
+        .table tbody tr:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Button Styling */
+        .btn-action {
+            padding: 5px 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            color: white;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            border: none;
+        }
+
+        .btn-action:hover {
+            background: linear-gradient(90deg, #a3d8ff, #bda9f9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: move 10s infinite ease-in-out;
+        }
+
+        .shape.circle {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.5);
+            top: 10%;
+            left: 5%;
+        }
+
+        .shape.square {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.5);
+            top: 50%;
+            left: 80%;
+        }
+
+        .shape.triangle {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid rgba(255, 255, 255, 0.5);
+            top: 70%;
+            left: 10%;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+
+            50% {
+                transform: translateY(50px) translateX(50px) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(0) translateX(0) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="#">BOOK STORE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="book_available">Available books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="my_books">My books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="register_book">New Book Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Author</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="b : ${wxyz}">
+                        <td th:text="${b.id}"></td>
+                        <td th:text="${b.name}"></td>
+                        <td th:text="${b.author}"></td>
+                        <td th:text="${b.price}"></td>
+                        <td>
+                            <a href="#" th:href="@{/deleteMyBook/{id}(id=${b.id})}" class="btn-action">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="shape circle"></div>
+    <div class="shape square"></div>
+    <div class="shape triangle"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-eMN23a1v09UJ5G66TKTkH4GfDgUxA2d8/8DEbbHLrti5DczS/3UOfZflx5S0j/Ax" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-38B22QVz8yHRz2cT1g4i8vXXIcKj+MCB5f1gjg0J1tKo/1hRyz5GGFLA3V5iU/Nf" crossorigin="anonymous"></script>
+</body>
+
+</html>

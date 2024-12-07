@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>BOOK STORE MANAGEMENT</title>
+
+    <style>
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: #4a90e2; 
+            padding: 1rem 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar:hover {
+            background: #357ab8; 
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff; 
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: #ffeaa7;
+        }
+
+        .navbar-toggler {
+            border: none;
+            background: transparent; 
+        }
+
+        .navbar-toggler-icon {
+            background-color: #ffffff; 
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #ffffff;
+            margin: 0 15px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffeaa7; 
+            transform: scale(1.1);
+        }
+
+        .navbar-collapse {
+            justify-content: flex-end;
+        }
+
+        /* Table Styling */
+        .table {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .table th {
+            background: #4a90e2;
+            color: #fff;
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+            color: #333;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(74, 144, 226, 0.2);
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary {
+            background: #ff7f50;
+            border: none;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #ff4500;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">BOOK STORE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="book_available">Available Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="my_books">My Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register_book">New Book Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5 col-md-8">
+        <h2 class="text-center mb-4" style="text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">Available Books</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">AUTHOR</th>
+                    <th scope="col">PRICE</th>
+                    <th scope="col">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="b :${xyz}">
+                    <td th:text="${b.id}"></td>
+                    <td th:text="${b.name}"></td>
+                    <td th:text="${b.author}"></td>
+                    <td th:text="${b.price}"></td>
+                    <td>
+                        <a class="btn btn-secondary btn-sm" th:href="@{/myList/{id}(id=${b.id})}">Add</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp0s2y3YgJqq7xS1e5f36M0yf3j"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
